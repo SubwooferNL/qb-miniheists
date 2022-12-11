@@ -109,10 +109,12 @@ RegisterNetEvent("qb-miniheists:getRewardC", function()
 end)
 
 RegisterNetEvent("qb-miniheists:GetScrapReward", function()
+    local src = source
     local amount = Config.ScrapItemAmount
     local item = Config.ScrapItems[math.random(1, #Config.ScrapItems)]
-    Player.Functions.AddItem(item, amount)
+    local Player = QBCore.Functions.GetPlayer(source)
     TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items[item], 'add')
+    Player.Functions.AddItem(item, amount)
     if Config.GiveScrapMoney then
         local moneyamount = math.random(Config.ScrapMoneyLow, Config.ScrapMoneyMax)
         Player.Functions.AddMoney('cash', moneyamount)
